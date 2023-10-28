@@ -8,8 +8,9 @@ import { UnifyExceptionFilter } from './utils/filter/unifyExceptionFilter';
 import { ValidatePipe } from './utils/pipe/validate';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuroraMysqlConnectionOptions } from 'typeorm/driver/aurora-mysql/AuroraMysqlConnectionOptions';
-import { JwtModule } from './common/jwt/jwt.module';
 import config from '../config';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
 
 const configMap = config();
 
@@ -21,6 +22,13 @@ const configMap = config();
     TypeOrmModule.forRoot(
       configMap.mysql as unknown as Partial<AuroraMysqlConnectionOptions>,
     ),
+    JwtModule.register({
+      secret: 'store-main',
+      signOptions: {
+        expiresIn: '7d',
+      },
+    }),
+    AuthModule,
     JwtModule,
   ],
   controllers: [],

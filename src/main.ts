@@ -9,17 +9,18 @@ async function bootstrap() {
     cors: true,
   });
 
+  app.setGlobalPrefix('api');
+
   const swaggerConfig = new DocumentBuilder()
     .setTitle('gos-master-server')
     .setDescription('The gos-master-server API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 
-  app.setGlobalPrefix('/api');
-
-  SwaggerModule.setup('/api/doc', app, document, {
+  SwaggerModule.setup('doc', app, document, {
     swaggerOptions: {
       withCredentials: true,
       requestInterceptor: (request) => {
