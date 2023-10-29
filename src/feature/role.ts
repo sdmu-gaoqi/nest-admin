@@ -19,5 +19,5 @@ export class Role_Feature extends Base_Feature {
   private sort: number;
 
   @Column()
-  private admin: boolean;
+  private admin: number;
 }

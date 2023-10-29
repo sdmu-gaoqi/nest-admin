@@ -1,24 +1,33 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { Base_Feature } from './base';
+import * as dayjs from 'dayjs';
+import { IsNotEmpty } from 'class-validator';
 
 @Entity('sys_user')
+@Unique(['userName'])
 export class User_Feature extends Base_Feature {
   @PrimaryGeneratedColumn()
   userId: number;
 
   @Column()
+  @IsNotEmpty()
   userName: string;
 
-  @Column()
-  private admin: boolean;
+  @Column({ default: 0 })
+  private admin: number;
 
   @Column()
+  @IsNotEmpty()
   password: string;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   private avatar: string;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   private nickName: string;
 
   @Column({
@@ -27,9 +36,17 @@ export class User_Feature extends Base_Feature {
   })
   private status: number;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   private remark: string;
 
-  @Column()
+  @Column({ default: '' })
   private phonenumber: string;
+
+  @Column({
+    type: 'datetime',
+    default: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  })
+  private lastLoginTime: string;
 }

@@ -6,5 +6,5 @@ export type Role = BaseData & {
   roleKey: string;
   status: number;
   sort: number;
-  admin: boolean;
+  admin: number;
 };

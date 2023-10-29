@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { LoginDto } from 'src/utils/dto/auth.dto';
+import { LoginDto, RegistDto } from 'src/utils/dto/auth.dto';
 import { AuthService } from './auth.service';
 
 @ApiTags('账号相关')
@@ -12,5 +12,12 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   login(@Body() body: LoginDto) {
     return this.authService.login(body);
+  }
+
+  @Post('register')
+  @ApiOperation({ summary: '用户注册' })
+  @ApiBody({ type: RegistDto })
+  register(@Body() body: RegistDto) {
+    return this.authService.regist(body);
   }
 }
