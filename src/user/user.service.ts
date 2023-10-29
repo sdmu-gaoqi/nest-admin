@@ -17,6 +17,8 @@ export class UserService {
     const findUser = await this.userRepository.findOneBy({
       userName: data.userName,
     });
+    const nowDate = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    this.userRepository.update(findUser.userId, { lastLoginTime: nowDate });
 
     return findUser;
   }

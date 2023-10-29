@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Response } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginDto, RegistDto } from 'src/utils/dto/auth.dto';
 import { AuthService } from './auth.service';
+import { userCookie } from 'src/constants';
 
 @ApiTags('账号相关')
 @Controller()
@@ -10,8 +11,10 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登录接口' })
   @ApiBody({ type: LoginDto })
-  login(@Body() body: LoginDto) {
-    return this.authService.login(body);
+  async login(@Response() res, @Body() body: LoginDto) {
+    const token = await this.authService.login(body);
+    res.cookie(userCookie, token, { signed: true, expired: '7d' });
+    res.status(200).json({ ret: 0, msg: '', data: token });
   }
 
   @Post('register')

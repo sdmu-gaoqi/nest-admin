@@ -10,6 +10,7 @@ import config from '../config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { StoreModule } from './modules/store/store.module';
 
 const configMap = config();
 
@@ -32,6 +33,7 @@ const configMap = config();
       ignoreEnvFile: true,
       load: [() => configMap],
     }),
+    StoreModule,
   ],
   controllers: [],
   providers: [

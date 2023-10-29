@@ -48,5 +48,5 @@ export class User_Feature extends Base_Feature {
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  private lastLoginTime: string;
+  lastLoginTime: string;
 }

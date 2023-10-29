@@ -9,3 +9,6 @@ src/utils/interceptor
 src/utils/pipe
 config 配置信息
 ```
+
+使用 bcrypt 密码处理
+cookie 鉴权

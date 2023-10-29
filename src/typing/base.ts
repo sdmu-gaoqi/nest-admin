@@ -4,3 +4,8 @@ export type BaseData = {
   updatedAt: string;
   updatedBy: string;
 };
+
+export type ListParams<T> = T & {
+  pageNum: number;
+  pageSize: number;
+};
