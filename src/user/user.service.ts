@@ -13,6 +13,12 @@ export class UserService {
     @InjectRepository(User_Feature)
     private userRepository: Repository<User_Feature>,
   ) {}
+
+  async findOneByUsername(userName: string) {
+    const user = await this.userRepository.findOneBy({ userName });
+    return user;
+  }
+
   async login(data: LoginDto) {
     const findUser = await this.userRepository.findOneBy({
       userName: data.userName,

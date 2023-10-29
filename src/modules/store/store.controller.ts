@@ -11,8 +11,8 @@ export class StoreController {
 
   @ApiOperation({ summary: '门店列表' })
   @Get()
-  @UseGuards(AuthGuard('jwt'))
   @ApiQuery({ type: QueryStoreParams })
+  @UseGuards(AuthGuard('jwt'))
   storeList(@Query() param) {
     return this.storeService.getStoreList(param);
   }
