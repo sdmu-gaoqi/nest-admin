@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
-import { AppModule as CodeAppModule } from './app/app.module';
-import { TenantModule } from './tenant/tenant.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TransformInterceptor } from './utils/interceptor/transform.interceptor';
 import { UnifyExceptionFilter } from './utils/filter/unifyExceptionFilter';
@@ -11,14 +9,13 @@ import { AuroraMysqlConnectionOptions } from 'typeorm/driver/aurora-mysql/Aurora
 import config from '../config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 const configMap = config();
 
 @Module({
   imports: [
     UserModule,
-    CodeAppModule,
-    TenantModule,
     TypeOrmModule.forRoot(
       configMap.mysql as unknown as Partial<AuroraMysqlConnectionOptions>,
     ),
@@ -30,6 +27,11 @@ const configMap = config();
     }),
     AuthModule,
     JwtModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      ignoreEnvFile: true,
+      load: [() => configMap],
+    }),
   ],
   controllers: [],
   providers: [
