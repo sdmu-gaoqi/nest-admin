@@ -46,7 +46,7 @@ export class User_Feature extends Base_Feature {
 
   @Column({
     type: 'datetime',
-    default: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    default: () => 'CURRENT_TIMESTAMP',
   })
   private lastLoginTime: string;
 }

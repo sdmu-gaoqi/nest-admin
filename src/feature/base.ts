@@ -1,20 +1,19 @@
-import * as dayjs from 'dayjs';
-import { Column, CreateDateColumn, Entity } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Base_Feature {
-  @CreateDateColumn({
+  @Column({
     type: 'datetime',
-    default: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: string;
 
   @Column()
   createdBy: string;
 
-  @CreateDateColumn({
+  @Column({
     type: 'datetime',
-    default: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: string;
 
