@@ -12,3 +12,7 @@ config 配置信息
 
 使用 bcrypt 密码处理
 cookie 鉴权
+
+### 登录方案
+
+Jwt 不过期 过期放在 redis 中

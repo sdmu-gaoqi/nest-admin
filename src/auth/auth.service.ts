@@ -11,7 +11,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  createToken(user: { userName: string; userId: number }) {
+  sign(user: { userName: string; userId: number }) {
     return this.jwtService.sign(user);
   }
 
@@ -28,10 +28,11 @@ export class AuthService {
   async login(data: LoginDto) {
     const user = await this.userService.login(data);
     if (user && BcryptService.compare(data.password, user.password)) {
-      const token = this.createToken({
+      const token = this.sign({
         userName: user.userName,
         userId: user.userId,
       });
+
       return token;
     }
     if (!user) {

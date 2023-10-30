@@ -11,7 +11,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './modules/store/store.module';
-import { jwtConstants } from './constants';
 
 const configMap = config();
 
@@ -21,12 +20,6 @@ const configMap = config();
     TypeOrmModule.forRoot(
       configMap.mysql as unknown as Partial<AuroraMysqlConnectionOptions>,
     ),
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: {
-        expiresIn: '7d',
-      },
-    }),
     AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,

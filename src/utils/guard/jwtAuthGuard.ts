@@ -6,11 +6,16 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from 'src/auth/auth.service';
 import { noCheckAuth } from 'src/constants';
+import { UserService } from 'src/user/user.service';
 
 // 继承AuthGuard 修改内部实例
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
+  constructor(private authService: AuthService) {
+    super();
+  }
   @Inject()
   reflector: Reflector;
 
@@ -27,11 +32,17 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (err || !user) {
       throw new UnauthorizedException(401);
     }
-    return user;
-  }
 
-  getResponse(context) {
-    const res = context.switchToHttp().getResponse();
-    return res;
+    const nowDate = +new Date() / 1000;
+    // token有效期剩余一天
+    console.log(user, 'usera');
+    if (user.exp - nowDate < 24 * 3600) {
+      const token = this.authService.sign({
+        userId: user.userId,
+        userName: user.userName,
+      });
+    }
+
+    return user;
   }
 }
