@@ -34,14 +34,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     const nowDate = +new Date() / 1000;
-    // token有效期剩余一天
-    console.log(user, 'usera');
-    if (user.exp - nowDate < 24 * 3600) {
-      const token = this.authService.sign({
-        userId: user.userId,
-        userName: user.userName,
-      });
-    }
+    // 这里要做 如果用户的操作距离token生效时间小于30分钟 就刷新token
+    // 不小于30分钟清除用户token重新登录
 
     return user;
   }
