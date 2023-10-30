@@ -28,7 +28,6 @@ const configMap = config();
       },
     }),
     AuthModule,
-    JwtModule,
     ConfigModule.forRoot({
       isGlobal: true,
       ignoreEnvFile: true,

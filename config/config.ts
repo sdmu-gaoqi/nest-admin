@@ -3,9 +3,12 @@ export default {
   mysql: {
     port: 3306,
     host: '127.0.0.1',
+    // username: 'root',
+    // password: 'root',
+    // database: 'store_main', // 库名
     username: 'root',
-    password: 'root',
-    database: 'store_main', // 库名
+    password: '123456',
+    database: 'test',
     type: 'mysql',
     autoLoadEntities: true,
     synchronize: true,

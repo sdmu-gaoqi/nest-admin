@@ -13,7 +13,14 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   async login(@Response() res, @Body() body: LoginDto) {
     const token = await this.authService.login(body);
-    res.cookie(userCookie, token, { signed: true, expired: '7d' });
+
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 1);
+
+    res.cookie(userCookie, token, {
+      signed: true,
+      expires: expirationDate,
+    });
     res.status(200).json({ ret: 0, msg: '', data: token });
   }
 
