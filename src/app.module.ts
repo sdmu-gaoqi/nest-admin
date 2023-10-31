@@ -7,10 +7,10 @@ import { ValidatePipe } from './utils/pipe/validate';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuroraMysqlConnectionOptions } from 'typeorm/driver/aurora-mysql/AuroraMysqlConnectionOptions';
 import config from '../config';
-import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './modules/store/store.module';
+import { RedisModule } from '@nestjs-modules/ioredis';
 
 const configMap = config();
 
@@ -27,6 +27,9 @@ const configMap = config();
       load: [() => configMap],
     }),
     StoreModule,
+    RedisModule.forRoot({
+      config: configMap.redisConf,
+    }),
   ],
   controllers: [],
   providers: [

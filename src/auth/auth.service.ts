@@ -1,3 +1,4 @@
+import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
@@ -9,10 +10,25 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private readonly jwtService: JwtService,
+    @InjectRedis() private redis: Redis,
   ) {}
 
   sign(user: { userName: string; userId: number }) {
-    return this.jwtService.sign(user);
+    const token = this.jwtService.sign(user);
+    this.redis.set(`${user.userId}-${user.userName}`, token, 'EX', 86400 * 7);
+    return token;
+  }
+
+  redisToken(user: { userName: string; userId: number }) {
+    if (!user) {
+      return null;
+    }
+    const redisTokenKey = `${user.userId}-${user.userName}`;
+    const redisTokenValue = this.redis.get(redisTokenKey);
+    if (redisTokenValue) {
+      return redisTokenValue;
+    }
+    return null;
   }
 
   async validateUser(userName: string, password: string): Promise<any> {
@@ -27,6 +43,14 @@ export class AuthService {
 
   async login(data: LoginDto) {
     const user = await this.userService.login(data);
+    // 先从redis中取到token 取不到再去重新生成
+    const rsToken = this.redisToken(user);
+    if (rsToken) {
+      console.log(rsToken);
+      return rsToken;
+    }
+
+    // 生成token时在redis中保存 有效期7天
     if (user && BcryptService.compare(data.password, user.password)) {
       const token = this.sign({
         userName: user.userName,
