@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as dayjs from 'dayjs';
+import { Perm_Feature } from 'src/feature/perm';
+import { Role_Feature } from 'src/feature/role';
 import { User_Feature } from 'src/feature/user';
 import { BcryptService } from 'src/utils/bcrypt';
 import { LoginDto, RegistDto } from 'src/utils/dto/auth.dto';
@@ -12,6 +14,12 @@ export class UserService {
     private bcrypt: BcryptService,
     @InjectRepository(User_Feature)
     private userRepository: Repository<User_Feature>,
+
+    @InjectRepository(Role_Feature)
+    private roleReepository: Repository<Role_Feature>,
+
+    @InjectRepository(Role_Feature)
+    private permRepositor: Repository<Perm_Feature>,
   ) {}
 
   async findOneByUsername(userName: string) {
@@ -23,6 +31,9 @@ export class UserService {
     const findUser = await this.userRepository.findOneBy({
       userName: data.userName,
     });
+    if (!findUser) {
+      throw new BadRequestException('用户不存在');
+    }
     const nowDate = dayjs().format('YYYY-MM-DD HH:mm:ss');
     this.userRepository.update(findUser.userId, { lastLoginTime: nowDate });
 
@@ -39,5 +50,16 @@ export class UserService {
       password: await BcryptService.hash(data.password),
     });
     return result;
+  }
+
+  async userInfo(user: User_Feature) {
+    const findUser = await this.userRepository.findOne({
+      where: {
+        userId: user.userId,
+      },
+      relations: ['roles', 'roles.perms'],
+    });
+
+    return findUser;
   }
 }

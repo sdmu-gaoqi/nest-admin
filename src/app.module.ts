@@ -11,6 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { StoreModule } from './modules/store/store.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
+import { RoleModule } from './modules/role/role.module';
+import { PermModule } from './modules/perm/perm.module';
 
 const configMap = config();
 
@@ -30,6 +32,8 @@ const configMap = config();
     RedisModule.forRoot({
       config: configMap.redisConf,
     }),
+    RoleModule,
+    PermModule,
   ],
   controllers: [],
   providers: [

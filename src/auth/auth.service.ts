@@ -44,7 +44,7 @@ export class AuthService {
   async login(data: LoginDto) {
     const user = await this.userService.login(data);
     // 先从redis中取到token 取不到再去重新生成
-    const rsToken = this.redisToken(user);
+    const rsToken = await this.redisToken(user);
     if (rsToken) {
       console.log(rsToken);
       return rsToken;

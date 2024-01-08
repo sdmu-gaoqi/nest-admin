@@ -1,7 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { Base_Feature } from './base';
-import * as dayjs from 'dayjs';
 import { IsNotEmpty } from 'class-validator';
+import { Role_Feature } from './role';
 
 @Entity('sys_user')
 @Unique(['userName'])
@@ -32,6 +39,7 @@ export class User_Feature extends Base_Feature {
 
   @Column({
     type: 'int',
+    comment: '0停用 1启用',
     default: 0,
   })
   private status: number;
@@ -49,4 +57,8 @@ export class User_Feature extends Base_Feature {
     default: () => 'CURRENT_TIMESTAMP',
   })
   lastLoginTime: string;
+
+  @ManyToMany(() => Role_Feature)
+  @JoinTable({ name: 'sys_role_user' })
+  roles: Role_Feature[];
 }
