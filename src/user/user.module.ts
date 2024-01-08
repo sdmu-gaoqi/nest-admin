@@ -6,8 +6,6 @@ import { UserController } from './user.controller';
 import { PassportModule } from '@nestjs/passport';
 import { BcryptService } from 'src/utils/bcrypt';
 import { Role_Feature } from 'src/feature/role';
-import { PermModule } from 'src/modules/perm/perm.module';
-import { PermService } from 'src/modules/perm/perm.service';
 
 @Module({
   imports: [

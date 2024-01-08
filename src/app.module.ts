@@ -9,11 +9,9 @@ import { AuroraMysqlConnectionOptions } from 'typeorm/driver/aurora-mysql/Aurora
 import config from '../config';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { StoreModule } from './modules/store/store.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { RoleModule } from './modules/role/role.module';
 import { PermModule } from './modules/perm/perm.module';
-
 const configMap = config();
 
 @Module({
@@ -28,12 +26,12 @@ const configMap = config();
       ignoreEnvFile: true,
       load: [() => configMap],
     }),
-    StoreModule,
     RedisModule.forRoot({
       config: configMap.redisConf,
     }),
     RoleModule,
     PermModule,
+    // PermModule,
   ],
   controllers: [],
   providers: [
