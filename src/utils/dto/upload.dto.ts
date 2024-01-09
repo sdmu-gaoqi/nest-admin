@@ -13,7 +13,8 @@ export class UploadJsonDto {
   @IsNotEmpty()
   fileName: string;
 
-  @ApiProperty({ description: '文件地址', default: '/files' })
+  @ApiPropertyOptional({ description: '文件地址', default: 'resources' })
+  @IsOptional()
   path: string;
 }
 
@@ -27,7 +28,8 @@ export class UploadDto {
   // @IsNotEmpty()
   file: any;
 
-  @ApiProperty({ description: '文件地址', default: '/files' })
+  @ApiPropertyOptional({ description: '文件地址', default: '/resources' })
+  @IsOptional()
   path: string;
 }
 
@@ -39,7 +41,7 @@ export class MultiUploadDto {
   })
   files: any[];
 
-  @ApiPropertyOptional({ description: '文件地址', default: '/files' })
+  @ApiPropertyOptional({ description: '文件地址', default: '/resources' })
   @IsOptional()
   path: string;
 }

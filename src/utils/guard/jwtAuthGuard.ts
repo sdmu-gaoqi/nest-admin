@@ -8,7 +8,6 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
 import { noCheckAuth } from 'src/constants';
-import { UserService } from 'src/user/user.service';
 
 // 继承AuthGuard 修改内部实例
 @Injectable()

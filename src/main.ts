@@ -14,13 +14,13 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.use(cookieParser('codersx'));
   // 支持访问静态资源
-  app.useStaticAssets('files', {
+  app.useStaticAssets('resources', {
     prefix: '/static/',
   });
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('gos-master-server')
-    .setDescription('The gos-master-server API description')
+    .setTitle('store-nest-server')
+    .setDescription('The store-nest-server API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

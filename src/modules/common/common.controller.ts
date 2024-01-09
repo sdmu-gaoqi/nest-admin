@@ -35,17 +35,11 @@ export class CommonController {
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('file', {
-      limits: {
-        fileSize: 1000,
-        files: 10,
-        fieldSize: 10,
-        fields: 1000,
-      },
       storage: diskStorage({
         destination: 'resources',
         filename: (req, file, cb) => {
           const randomName = Date.now();
-          cb(null, `${randomName}-${getFileExt(file.originalname)}`);
+          cb(null, `${randomName}.${getFileExt(file.originalname)}`);
         },
       }),
     }),

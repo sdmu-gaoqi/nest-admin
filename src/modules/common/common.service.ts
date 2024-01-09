@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   MultiUploadDto,
   UploadDto,
@@ -19,19 +19,19 @@ export class CommonService {
   }
   async uploadJson(data: UploadJsonDto) {
     const fileName = `${data.fileName}.json`;
-    const workingDirectory = 'work/frontend/dist/web/uploads';
     const filePath = `${data.path}/${fileName}`;
-    const file = fs.writeFileSync(filePath, JSON.stringify(data));
-    try {
-      const data = await cos.uploadFile({
-        FilePath: filePath,
-        Bucket: '',
-        Region: '',
-        Key: '',
-      });
-      return data;
-    } catch (err) {
-      return new BadRequestException(err);
-    }
+    fs.writeFileSync(filePath, JSON.stringify(data));
+    // const workingDirectory = 'work/frontend/dist/web/uploads';
+    // try {
+    //   const data = await cos.uploadFile({
+    //     FilePath: filePath,
+    //     Bucket: '',
+    //     Region: '',
+    //     Key: '',
+    //   });
+    //   return data;
+    // } catch (err) {
+    //   return new BadRequestException(err);
+    // }
   }
 }
