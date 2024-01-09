@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { RoleModule } from './modules/role/role.module';
 import { PermModule } from './modules/perm/perm.module';
+import { CommonModule } from './modules/common/common.module';
 const configMap = config();
 
 @Module({
@@ -31,7 +32,7 @@ const configMap = config();
     }),
     RoleModule,
     PermModule,
-    // PermModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [

@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "build-wp": "nest build --webpack --webpackPath=./webpack.config.js"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^1.0.1",
@@ -31,6 +32,7 @@
     "@nestjs/typeorm": "^10.0.0",
     "@types/bcrypt": "^5.0.1",
     "@types/cookie-parser": "^1.4.5",
+    "@types/multer": "^1.4.11",
     "@types/passport": "^1.0.14",
     "@types/passport-jwt": "^3.0.12",
     "@types/passport-local": "^1.0.37",
@@ -38,9 +40,13 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
+    "cos-nodejs-sdk-v5": "^2.12.6",
     "dayjs": "^1.11.10",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
+    "fs": "^0.0.1-security",
     "ioredis": "^5.3.2",
     "log4js": "^6.9.1",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
@@ -49,6 +55,7 @@
     "rxjs": "^7.2.0",
     "stacktrace-js": "^2.0.2",
     "typeorm": "^0.3.17",
+    "wa-utils": "^0.2.5",
     "winston": "^3.11.0"
   },
   "devDependencies": {

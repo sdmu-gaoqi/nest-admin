@@ -4,14 +4,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
 
   app.setGlobalPrefix('api');
   app.use(cookieParser('codersx'));
+  // 支持访问静态资源
+  app.useStaticAssets('files', {
+    prefix: '/static/',
+  });
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('gos-master-server')
