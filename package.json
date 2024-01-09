@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "build-wp": "nest build --webpack --webpackPath=./webpack.config.js"
+    "pm:start": "pm2 start ./config/ecosystem.config.js",
+    "pm:stop": "pm2 stop store-nest-server"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^1.0.1",
