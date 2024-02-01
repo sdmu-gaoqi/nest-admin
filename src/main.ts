@@ -40,7 +40,7 @@ async function bootstrap() {
 
   const logger = new Logger();
 
-  const port = app.get(ConfigService).get('port');
+  const port = 12001;
 
   await app.listen(
     (() => {

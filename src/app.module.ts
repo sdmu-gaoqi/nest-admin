@@ -3,31 +3,10 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { TransformInterceptor } from './utils/interceptor/transform.interceptor';
 import { UnifyExceptionFilter } from './utils/filter/unifyExceptionFilter';
 import { ValidatePipe } from './utils/pipe/validate';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuroraMysqlConnectionOptions } from 'typeorm/driver/aurora-mysql/AuroraMysqlConnectionOptions';
-import config from '../config';
-import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
-import { RedisModule } from '@nestjs-modules/ioredis';
 import { CommonModule } from './modules/common/common.module';
-const configMap = config();
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(
-      configMap.mysql as unknown as Partial<AuroraMysqlConnectionOptions>,
-    ),
-    AuthModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      ignoreEnvFile: true,
-      load: [() => configMap],
-    }),
-    RedisModule.forRoot({
-      config: configMap.redisConf,
-    }),
-    CommonModule,
-  ],
+  imports: [CommonModule],
   controllers: [],
   providers: [
     // 注册全局的异常处理
