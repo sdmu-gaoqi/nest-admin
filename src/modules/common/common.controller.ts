@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UploadedFile,
-  UploadedFiles,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import {
   ApiBody,
   ApiConsumes,
@@ -44,7 +37,7 @@ export class CommonController {
       }),
     }),
   )
-  upload(@Body() body: UploadDto, @UploadedFile() file: any) {
+  upload(@Body() body: UploadDto) {
     return this.commonService.upload(body);
   }
 
@@ -64,10 +57,7 @@ export class CommonController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: MultiUploadDto })
   @ApiResponse({ type: MultiUploadDto, isArray: true })
-  multiUpload(
-    @Body() body: MultiUploadDto,
-    @UploadedFiles() files: Express.Multer.File,
-  ) {
+  multiUpload(@Body() body: MultiUploadDto) {
     return this.commonService.upload(body);
   }
 

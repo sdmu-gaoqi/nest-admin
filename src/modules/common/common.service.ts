@@ -5,17 +5,17 @@ import {
   UploadJsonDto,
 } from 'src/utils/dto/upload.dto';
 import * as fs from 'fs';
-import * as COS from 'cos-nodejs-sdk-v5';
+// import * as COS from 'cos-nodejs-sdk-v5';
 
-const cos = new COS({
-  SecretId: '',
-  SecretKey: '',
-});
+// const cos = new COS({
+//   SecretId: '',
+//   SecretKey: '',
+// });
 
 @Injectable()
 export class CommonService {
   async upload(data: UploadDto | MultiUploadDto) {
-    // console.log(data, 'data');
+    console.log(data, 'data');
   }
   async uploadJson(data: UploadJsonDto) {
     const fileName = `${data.fileName}.json`;

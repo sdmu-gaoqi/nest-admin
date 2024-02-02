@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -45,6 +44,7 @@ async function bootstrap() {
   await app.listen(
     (() => {
       logger.log(`服务启动成功 127.0.0.1:${port}`);
+      logger.log(`api文档地址 127.0.0.1:${port}/doc`);
       return port;
     })(),
   );

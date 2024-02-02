@@ -51,7 +51,6 @@ Log4js.addLayout('Awesome-nest', (logConfig: any) => {
     });
     //日志组成部分
     const messageOutput: string = messageList.join(' ');
-    const positionOutput: string = position ? `[${position}]` : '';
     const typeOutput = `[${logConfig.type}]${logEvent.pid.toString()} - `;
     const dateOutput = `${Moment(logEvent.startTime).format(
       'YYYY-MM-DD HH:mm:ss',

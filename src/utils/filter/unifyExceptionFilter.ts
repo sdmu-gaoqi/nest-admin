@@ -5,14 +5,13 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { logger } from '../log4js';
 
 @Catch()
-export class UnifyExceptionFilter<T> implements ExceptionFilter {
+export class UnifyExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    const request = ctx.getRequest();
+    // const request = ctx.getRequest();
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
