@@ -10,6 +10,14 @@ async function bootstrap() {
     cors: true,
   });
 
+  app.enableCors({
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: (_requestOrigin: string, callback) => {
+      return callback(null, true);
+    },
+  });
+
   app.setGlobalPrefix('api');
   app.use(cookieParser('codersx'));
   // 支持访问静态资源
