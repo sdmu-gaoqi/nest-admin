@@ -3,7 +3,7 @@ import * as StackTrace from 'stacktrace-js';
 import * as Path from 'path';
 import log4jsConfig from '../../config/log4js'; //日志级别
 import * as Moment from 'dayjs';
-import * as Chalk from 'chalk';
+import Chalk from 'chalk';
 import Util from 'util';
 
 export enum LoggerLevel {
