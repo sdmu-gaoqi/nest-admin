@@ -41,7 +41,7 @@ export class MultiUploadDto {
   })
   files: any[];
 
-  @ApiPropertyOptional({ description: '文件地址', default: '/resources' })
+  @ApiPropertyOptional({ description: '文件地址', default: '../resources' })
   @IsOptional()
   path: string;
 }
